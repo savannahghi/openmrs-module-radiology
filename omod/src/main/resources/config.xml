@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<author>HealthIT</author>
+	<description>
+		Provide simple radiology interface to collect samples at the radiology departiment
+	</description>
+	<require_version>${openMRSVersion}</require_version>
+	<!-- / Module Properties -->
+
+	
+	<!-- Required Modules -->
+	<require_modules>
+		<require_module>org.openmrs.module.uiframework</require_module>
+
+		<require_module>org.openmrs.module.uilibrary</require_module>
+
+		<require_module>org.openmrs.module.hospitalcore</require_module>
+
+		<require_module>org.openmrs.module.ehrconfigs</require_module>
+
+		<require_module>org.openmrs.module.kenyacore</require_module>
+
+		<require_module>org.openmrs.module.kenyaui</require_module>
+
+		<require_module>org.openmrs.module.metadatasharing</require_module>
+
+		<require_module>org.openmrs.module.metadatadeploy</require_module>
+
+		<require_module>org.openmrs.module.kenyaemr</require_module>
+
+	</require_modules>
+<aware_of_modules>
+<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+</aware_of_modules>
+	<!-- / Required Modules -->
+	
+	<!-- Module Activator -->
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.RadiologyAppActivator</activator>
+	
+	
+	<!-- Adds link to admin page -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList</class>
+	</extension>
+	
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+				
+		RadiologyApp.hbm.xml
+				
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with ${project.parent.artifactId}. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+
