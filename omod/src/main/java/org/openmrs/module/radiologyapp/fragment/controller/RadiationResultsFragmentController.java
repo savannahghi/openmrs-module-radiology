@@ -18,6 +18,7 @@ import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.RadiologyTest;
 import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
+import org.openmrs.module.hospitalcore.util.RadiologyConstants;
 import org.openmrs.module.hospitalcore.util.RadiologyUtil;
 import org.openmrs.obs.ComplexData;
 import org.openmrs.ui.framework.SimpleObject;
@@ -65,6 +66,7 @@ public class RadiationResultsFragmentController {
         System.out.println("Test this ID " + testId);
         RadiologyTest test = rs.getRadiologyTestById(Integer.parseInt(testId));
         String encounterTypeStr = GlobalPropertyUtil.getString(BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ENCOUNTER_TYPE, "RADIOLOGYENCOUNTER");
+        String imageConceptStr = GlobalPropertyUtil.getString(RadiologyConstants.PROPRETY_RADIOLOGY_IMAGE_CONCEPT, "ec58b921-03cd-486d-89e7-71b1b0db5f31");
         EncounterType encounterType = Context.getEncounterService().getEncounterType(encounterTypeStr);
         Encounter enc = new Encounter();
         enc.setCreator(Context.getAuthenticatedUser());
@@ -113,7 +115,7 @@ public class RadiationResultsFragmentController {
                         File f = new File(imgDir, file.getOriginalFilename());
                         Files.copy(stream, f.toPath());
 
-                        Concept imageConcept = Context.getConceptService().getConceptByUuid("bb6055a3-7310-42a3-a752-8d5f1a5d4ee1"); //100126232 on afyaehms
+                        Concept imageConcept = Context.getConceptService().getConceptByUuid(imageConceptStr);
                         obs = insertValue(enc, imageConcept, f.getName(), test);
                         enc.addObs(obs);
                         Context.getEncounterService().saveEncounter(enc);
